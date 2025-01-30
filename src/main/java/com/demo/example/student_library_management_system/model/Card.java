@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="card")
@@ -27,5 +29,15 @@ public class Card {
     @Column(name="card_status", nullable = false)
     @Enumerated(value = EnumType.STRING)// this will convert enum value as string while storing in database
     private CardStatus cardStatus;
+
+    @OneToOne
+    @JoinColumn // it joins the primary key of student table as foreign key in card table
+    private Student student;
+
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    private List<Book> bookList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private List<Transaction> transactionList = new ArrayList<>();
 
 }

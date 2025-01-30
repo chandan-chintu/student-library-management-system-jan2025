@@ -3,6 +3,9 @@ package com.demo.example.student_library_management_system.model;
 import com.demo.example.student_library_management_system.enums.Category;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="book")
 public class Book {
@@ -33,4 +36,15 @@ public class Book {
 
     @Column(name="rack_no", nullable = false)
     private String rackNo;
+
+    @ManyToOne
+    @JoinColumn
+    private Author author;
+
+    @ManyToOne
+    @JoinColumn
+    private Card card;
+
+    @OneToMany(mappedBy ="book",cascade = CascadeType.ALL)
+    private List<Transaction> transactionList =new ArrayList<>();
 }

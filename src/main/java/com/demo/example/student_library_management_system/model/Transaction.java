@@ -28,4 +28,12 @@ public class Transaction {
 
     @Column(name = "fine",nullable = false)
     private double fine;
+
+    @ManyToOne
+    @JoinColumn
+    private Book book;
+
+    @JoinColumn
+    @ManyToOne
+    private Card card;
 }

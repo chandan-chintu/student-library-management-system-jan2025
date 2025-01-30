@@ -1,47 +1,17 @@
-package com.demo.example.student_library_management_system.model;
+package com.demo.example.student_library_management_system.requestdto;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name ="student")
-public class Student {
+public class StudentRequestDto {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this will automatically generate id in backend database
-    private int id;
+    //Request DTO(Data transfer object) - it is used to take input fields
 
-    @Column(name="name", nullable = false)
     private String name;
-
-    @Column(name="email", unique = true, nullable = false)
     private String email;
-
-    @Column(name = "gender")
     private String gender;
-
-    @Column(name = "mobile", nullable = false)
     private String mobile;
-
-    @Column(name = "sem", nullable = false)
     private String semester;
-
-    @Column(name = "department", nullable = false)
     private String department;
-
-    @Column(name = "dob", nullable = false)
     private String dob;
-
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    private Card card;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -97,13 +67,5 @@ public class Student {
 
     public void setDob(String dob) {
         this.dob = dob;
-    }
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
     }
 }

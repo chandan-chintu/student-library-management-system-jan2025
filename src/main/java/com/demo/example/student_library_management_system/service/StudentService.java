@@ -7,6 +7,9 @@ import com.demo.example.student_library_management_system.model.Student;
 import com.demo.example.student_library_management_system.repository.StudentRepository;
 import com.demo.example.student_library_management_system.requestdto.StudentRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,6 +50,45 @@ public class StudentService {
         return studentList;
     }
 
+    /*
+    pagination - fetching the data or records in the form of pages
+    pagenumber- the number of page we want to see(page number starts from 0,1,2,3,4,...)
+    pagsize - the total number of record in each page
+
+    database total records - 28, page size -5
+    0th page-1-5
+    1st page-6-10
+    2nd page-11-15
+    3rd page-16-20
+    4th page-21-25
+    5th page-26-28
+
+    database total records - 11, pagesize-2
+    0th page-1-2
+    1st page-3-4
+    2nd page-5-6
+    3rd page-7-8
+    4th page-9-10
+    5th page-11
+
+    database record s-13 pagesize-4
+    0th page -1-4
+    1st page -5-8
+    2nd page - 9-12
+    3rd page -13
+    4th page - no data
+
+    Sorting - arranging the data or records in ascending or descending order
+     */
+    public List<Student> findAllStudentsByPage(int pageNo, int pageSize){
+        // only pagination - Page<Student> studentPage = studentRepository.findAll(PageRequest.of(pageNo,pageSize));
+        // pagination along with sorting use below line
+        Page<Student> studentPage = studentRepository.findAll(PageRequest.of(pageNo,pageSize, Sort.by("name").ascending()));
+        return studentPage.getContent();
+    }
+
+
+
     public String updateStudent(int id, StudentRequestDto studentRequestDto){
         Student student = getStudentById(id);
         if(student!=null){
@@ -80,4 +122,5 @@ public class StudentService {
         studentRepository.deleteById(id);
         return "student with id "+id+" deleted successfully";
     }
+
 }

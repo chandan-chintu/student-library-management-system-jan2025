@@ -4,6 +4,7 @@ import com.demo.example.student_library_management_system.model.Student;
 import com.demo.example.student_library_management_system.requestdto.StudentRequestDto;
 import com.demo.example.student_library_management_system.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,12 @@ public class StudentController {
     public List<Student> findAllStudent(){
         List<Student> studentList = studentService.getAllStudents();
         return studentList;
+    }
+
+    @GetMapping("/findAllByPage")
+    public List<Student> findAllStudentUsingPage(@RequestParam int pageNo,@RequestParam int pageSize){
+        List<Student> studentPage = studentService.findAllStudentsByPage(pageNo,pageSize);
+        return studentPage;
     }
 
     @PutMapping("/update/{id}")

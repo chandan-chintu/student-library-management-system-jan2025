@@ -58,4 +58,35 @@ public class StudentController {
         return response;
     }
 
+    @GetMapping("/findByEmail")
+    public Student findStudentByEmail(@RequestParam String email){
+        Student student = studentService.findStudentByEmail(email);
+        return student;
+    }
+
+    @GetMapping("/findByDept")
+    public List<Student> findStudentByDept(@RequestParam String dept){
+        List<Student> studentList = studentService.findStudentByDepartment(dept);
+        return studentList;
+    }
+
+    @GetMapping("/findBySemAndDept")
+    public List<Student> findStudentBySemAndDept(@RequestParam String sem,@RequestParam String dept){
+        List<Student> studentList = studentService.findStudentBySemAndDepartment(sem,dept);
+        return studentList;
+    }
+
+    @GetMapping("/findBySemOrDept")
+    public List<Student> findStudentBySemOrDept(@RequestParam String sem,@RequestParam String dept){
+        List<Student> studentList = studentService.findStudentBySemOrDepartment(sem,dept);
+        return studentList;
+    }
+
+
+    @GetMapping("/findByEmailQuery")
+    public Student findStudentByEmailQuery(@RequestParam String email){
+        Student student = studentService.getEmailByQuery(email);
+        return student;
+    }
+
 }

@@ -123,4 +123,29 @@ public class StudentService {
         return "student with id "+id+" deleted successfully";
     }
 
+    public Student findStudentByEmail(String email){
+        Student student = studentRepository.findByEmail(email);
+        return student;
+    }
+
+    public List<Student> findStudentByDepartment(String dept){
+        List<Student> studentList = studentRepository.findByDepartment(dept);
+        return studentList;
+    }
+
+    public List<Student> findStudentBySemAndDepartment(String sem, String dept){
+        List<Student> studentList = studentRepository.findBySemesterAndDepartment(sem,dept);
+        return studentList;
+    }
+
+    public List<Student> findStudentBySemOrDepartment(String sem, String dept){
+        List<Student> studentList = studentRepository.findBySemesterOrDepartment(sem,dept);
+        return studentList;
+    }
+
+    public Student getEmailByQuery(String email){
+        Student student = studentRepository.getEmailByQuery(email);
+        return student;
+    }
+
 }

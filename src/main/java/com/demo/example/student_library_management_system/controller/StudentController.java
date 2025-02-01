@@ -33,4 +33,22 @@ public class StudentController {
         return studentList;
     }
 
+    @PutMapping("/update/{id}")
+    public String updateStudent(@PathVariable int id, @RequestBody StudentRequestDto studentRequestDto){
+        String response = studentService.updateStudent(id,studentRequestDto);
+        return response;
+    }
+
+    @PatchMapping("/update/{id}")
+    public String updateStudentSemester(@PathVariable int id, @RequestParam String semester){
+        String response  = studentService.updateStudentSemester(id,semester);
+        return response;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteStudentById(@PathVariable int id){
+        String response = studentService.deleteStudentById(id);
+        return response;
+    }
+
 }

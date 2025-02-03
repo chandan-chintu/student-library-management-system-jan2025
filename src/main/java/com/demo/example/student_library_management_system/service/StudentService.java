@@ -26,6 +26,10 @@ public class StudentService {
         // first convert studentrequestdto into student object
         Student student = StudentConverter.convertStudentRequestDtoIntoStudent(studentRequestDto);
 
+        if(student==null){
+            throw new RuntimeException("student not saved");
+        }
+
         //whenever the student are added card also issued/added at same time
         Card card = new Card();
         card.setCardStatus(CardStatus.ACTIVE);
@@ -39,6 +43,9 @@ public class StudentService {
 
     public Student getStudentById(int id){
         Optional<Student> studentOptional = studentRepository.findById(id);
+        if(!studentOptional.isPresent()){
+            throw new RuntimeException("Student with id "+id+" not found");
+        }
         if(studentOptional.isPresent()){
             return studentOptional.get();
         }
@@ -47,6 +54,9 @@ public class StudentService {
 
     public List<Student> getAllStudents(){
         List<Student> studentList=studentRepository.findAll();
+        if(studentList.isEmpty()){
+            throw new RuntimeException("no students found");
+        }
         return studentList;
     }
 
